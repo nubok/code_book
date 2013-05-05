@@ -1,0 +1,92 @@
+\documentclass[10pt,a4paper,BCOR = 12mm,DIV=15]{scrbook}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, subfigure}
+\usepackage{placeins} % FloatBarrier
+\author{Wolfgang Keller}
+\title{The code book}
+
+\newtheorem{Def}{Definition}
+\newtheorem{Le}[Def]{Lemma}
+\newtheorem{Th}[Def]{Theorem}
+\newtheorem{Cor}[Def]{Corollary}
+\newtheorem{Rem}[Def]{Remark}
+\newtheorem{Ex}[Def]{Example}
+
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\inc}{\operatorname{inc}}
+\newcommand{\dec}{\operatorname{dec}}
+\newcommand{\numgray}{\operatorname{num-to-gray}}
+\newcommand{\graynum}{\operatorname{gray-to-num}}
+
+\begin{document}
+
+\chapter{Binary code}
+
+\section{Definitions}
+
+\begin{Def}
+Let $k \in \mathbb{Z}_{\geq 2}$ and $n \in \mathbb{Z}_{\geq 0}$. We define $\mathbb{Z}_k^n := \left\{0, \ldots, k-1\right\}^{\left\{0, \ldots, n-1\right\}}$.
+\end{Def}
+
+\begin{Def}
+Let $a, b \in \mathbb{Z}_k$. We set
+\begin{align*}
+a \oplus b & := a + b \mod k \\
+a \wedge b & := \begin{cases}
+1 & a=k-1 \wedge b=k-1 \\
+0 & \textnormal{otherwise.}
+\end{cases}
+\end{align*}
+\end{Def}
+
+\section{Incrementing/decrementing integers}
+
+\begin{Def}
+We define the \emph{increment} by
+\begin{align*}
+\inc: \mathbb{Z}_k^n & \rightarrow \mathbb{Z}_k^n: \\
+a & \mapsto \left\{a_i \oplus \bigwedge_{j=0}^{i-1} a_j\right\}_{i=0}^{n-1}
+\end{align*}
+and the \emph{decrement} by
+\begin{align*}
+\dec: \mathbb{Z}_k^n & \rightarrow \mathbb{Z}_k^n: \\
+a & \mapsto \left\{a_i \ominus \bigwedge_{j=0}^{i-1} \overline{a_j}\right\}_{i=0}^{n-1}.
+\end{align*}
+\end{Def}
+
+\begin{Le}
+$\dec \circ \inc = \id$.
+\end{Le}
+\begin{proof}
+
+\end{proof}
+
+\section{Gray code}
+
+\begin{Def}
+We define \emph{num-to-gray} by
+\begin{align*}
+\numgray: \mathbb{Z}_k^n & \rightarrow \mathbb{Z}_k^n: \\
+a & \mapsto \left\{
+a_i \ominus a_{i+1} 
+\right\}_{i=0}^{n-1}
+\end{align*}
+where we define $a_n := 0$ and \emph{gray-to-num} by
+\begin{align*}
+\graynum: \mathbb{Z}_k^n & \rightarrow \mathbb{Z}_k^n: \\
+a & \mapsto \left\{
+\bigoplus_{j=i}^n a_j
+\right\}_{i=0}^{n-1}.
+\end{align*}
+\end{Def}
+
+\begin{Le}
+$\graynum \circ \numgray = \id$.
+\end{Le}
+\begin{proof}
+\end{proof}
+
+\end{document}
